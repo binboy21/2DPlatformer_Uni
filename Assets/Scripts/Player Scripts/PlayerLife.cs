@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
+
+    [SerializeField] private GameObject footColl;
     void Start()
     {
         
@@ -24,7 +26,13 @@ public class PlayerLife : MonoBehaviour
         if (coll.gameObject.CompareTag("Enemy"))
         {
             if (GetComponent<PlayerMovement>().dashing) Kill(coll.gameObject);
-            //else Die();
+            else if (footColl.GetComponent<FootCollider>().bounce) footColl.GetComponent<FootCollider>().bounce = false;
+            else Die();
+        }
+        if(coll.gameObject.CompareTag("Bullet"))
+        {
+            if (footColl.GetComponent<FootCollider>().bounce) footColl.GetComponent<FootCollider>().bounce = false;
+            else Die();
         }
     }
 

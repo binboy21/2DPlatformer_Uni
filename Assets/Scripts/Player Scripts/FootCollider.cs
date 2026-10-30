@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FootCollider : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+
+    public bool bounce;
     void Start()
     {
         
@@ -20,7 +23,9 @@ public class FootCollider : MonoBehaviour
         {
             player.GetComponent<PlayerMovement>().isGrounded = true;
         }
+        if (coll.gameObject.CompareTag("Trap")) Die();
         if (coll.gameObject.CompareTag("Enemy")) Kill(coll.gameObject);
+        if (coll.gameObject.CompareTag("Bullet")) Kill(coll.gameObject);
     }
 
     private void OnCollisionExit2D(Collision2D coll)
@@ -49,7 +54,13 @@ public class FootCollider : MonoBehaviour
 
     private void Kill(GameObject enemy)
     {
+        bounce = true;
         player.GetComponent<PlayerMovement>().Bounce();
         Destroy(enemy);
+    }
+
+    private void Die()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 }

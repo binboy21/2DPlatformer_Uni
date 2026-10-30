@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     private float maxDashTimer = 0.4f;
     public bool dashing;
     private int dashAmount = 1;
+
+    public OrbBounce orbBounceMiniGame;
+    public PlayerManager playerManager;
     
     void Start()
     {
@@ -35,6 +38,11 @@ public class PlayerMovement : MonoBehaviour
         if (jump.triggered && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+            if (orbBounceMiniGame != null)
+            {
+                if (playerManager.player1Object == this.gameObject) orbBounceMiniGame.P1Count();
+                else orbBounceMiniGame.P2Count();
+            }
         }
 
         if (dash.triggered || dashing)
@@ -83,5 +91,10 @@ public class PlayerMovement : MonoBehaviour
     public void Bounce()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight/2);
+        if (orbBounceMiniGame != null)
+        {
+            if (playerManager.player1Object == this.gameObject) orbBounceMiniGame.P1Count();
+            else orbBounceMiniGame.P2Count();
+        }
     }
 }
