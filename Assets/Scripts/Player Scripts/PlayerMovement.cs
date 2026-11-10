@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     public OrbBounce orbBounceMiniGame;
     public PlayerManager playerManager;
+
     
     void Start()
     {
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         jump = GetComponent<PlayerInput>().actions["Jump"];
         dash = GetComponent<PlayerInput>().actions["Dash"];
         dashing = false;
+
     }
 
     // Update is called once per frame
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         else dashTimer -= Time.deltaTime;
 
         if (isGrounded) dashAmount = 1;
+
     }
 
     public void OnMove(InputValue moveValue)

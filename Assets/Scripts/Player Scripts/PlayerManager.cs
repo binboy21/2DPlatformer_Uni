@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private Transform spawnPoint;
+    [SerializeField] public Transform spawnPoint;
 
     [SerializeField] private GameObject player1, player2;
 

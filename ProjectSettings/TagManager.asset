@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Trap
   - Bullet
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

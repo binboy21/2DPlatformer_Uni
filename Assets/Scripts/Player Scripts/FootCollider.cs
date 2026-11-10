@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class FootCollider : MonoBehaviour
@@ -26,6 +26,11 @@ public class FootCollider : MonoBehaviour
         if (coll.gameObject.CompareTag("Trap")) Die();
         if (coll.gameObject.CompareTag("Enemy")) Kill(coll.gameObject);
         if (coll.gameObject.CompareTag("Bullet")) Kill(coll.gameObject);
+        if (coll.gameObject.CompareTag("MovingPlatform"))
+        {
+            player.GetComponent<PlayerMovement>().isGrounded = true;
+            player.transform.parent = coll.gameObject.transform;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D coll)
@@ -33,6 +38,11 @@ public class FootCollider : MonoBehaviour
         if (coll.gameObject.CompareTag("Floor"))
         {
             player.GetComponent<PlayerMovement>().isGrounded = false;
+        }
+        if (coll.gameObject.CompareTag("MovingPlatform"))
+        {
+            player.GetComponent<PlayerMovement>().isGrounded = false;
+            player.transform.parent = null;
         }
     }
 
