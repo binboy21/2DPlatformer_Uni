@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7764979088044388306}
   - component: {fileID: 8966594270867299869}
   - component: {fileID: 459136602893522728}
+  - component: {fileID: 7959204951811733740}
   m_Layer: 6
   m_Name: Player 2
   m_TagString: Untagged
@@ -235,6 +236,8 @@ MonoBehaviour:
     m_Priority: 0
   isGrounded: 0
   dashing: 0
+  orbBounceMiniGame: {fileID: 0}
+  playerManager: {fileID: 0}
 --- !u!114 &459136602893522728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,6 +251,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLife
   footColl: {fileID: 5141116730512371053}
+--- !u!114 &7959204951811733740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311291440886285199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1742436e503809848b8f73e66ebd00ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerScore
 --- !u!1 &5141116730512371053
 GameObject:
   m_ObjectHideFlags: 0

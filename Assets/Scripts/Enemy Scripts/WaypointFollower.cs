@@ -17,12 +17,12 @@ public class WaypointFollower : MonoBehaviour
         if (first)
         {
             transform.position = Vector2.MoveTowards(transform.position, waypoint1.position, speed * Time.deltaTime);
-            if (transform.position.x == waypoint1.position.x) first = false;
+            if (transform.position == waypoint1.position) first = false;
         }
         else
         {
             transform.position = Vector2.MoveTowards(transform.position, waypoint2.position, speed * Time.deltaTime);
-            if (transform.position.x == waypoint2.position.x) first = true;
+            if (transform.position == waypoint2.position) first = true;
         }
     }
 }

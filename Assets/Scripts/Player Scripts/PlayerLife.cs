@@ -25,7 +25,7 @@ public class PlayerLife : MonoBehaviour
         
         if (coll.gameObject.CompareTag("Enemy"))
         {
-            if (GetComponent<PlayerMovement>().dashing) Kill(coll.gameObject);
+            if (GetComponent<PlayerMovement>().dashing) footColl.GetComponent<FootCollider>().Kill(coll.gameObject);
             else if (footColl.GetComponent<FootCollider>().bounce) footColl.GetComponent<FootCollider>().bounce = false;
             else Die();
         }
@@ -36,14 +36,10 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
-    }
-
-    private void Kill(GameObject enemy)
-    {
-        Destroy(enemy);
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 
 }

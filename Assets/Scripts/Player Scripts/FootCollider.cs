@@ -6,6 +6,7 @@ public class FootCollider : MonoBehaviour
     [SerializeField] private GameObject player;
 
     public bool bounce;
+    private float jumpPadHeight = 14f;
     void Start()
     {
         
@@ -23,7 +24,12 @@ public class FootCollider : MonoBehaviour
         {
             player.GetComponent<PlayerMovement>().isGrounded = true;
         }
-        if (coll.gameObject.CompareTag("Trap")) Die();
+        if (coll.gameObject.CompareTag("JumpPad"))
+        {
+            player.GetComponent<PlayerMovement>().isGrounded = true;
+            player.GetComponent<PlayerMovement>().Jump(jumpPadHeight);
+        }
+        if (coll.gameObject.CompareTag("Trap")) player.GetComponent<PlayerLife>().Die();
         if (coll.gameObject.CompareTag("Enemy")) Kill(coll.gameObject);
         if (coll.gameObject.CompareTag("Bullet")) Kill(coll.gameObject);
         if (coll.gameObject.CompareTag("MovingPlatform"))
@@ -44,6 +50,10 @@ public class FootCollider : MonoBehaviour
             player.GetComponent<PlayerMovement>().isGrounded = false;
             player.transform.parent = null;
         }
+        if (coll.gameObject.CompareTag("JumpPad"))
+        {
+            player.GetComponent<PlayerMovement>().isGrounded = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D coll)
@@ -62,15 +72,12 @@ public class FootCollider : MonoBehaviour
         }
     }
 
-    private void Kill(GameObject enemy)
+    public void Kill(GameObject enemy)
     {
         bounce = true;
         player.GetComponent<PlayerMovement>().Bounce();
         Destroy(enemy);
+        player.GetComponent<PlayerScore>().score += 20;
     }
 
-    private void Die()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
-    }
 }

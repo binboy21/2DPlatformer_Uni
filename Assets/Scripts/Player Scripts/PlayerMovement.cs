@@ -39,12 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (jump.triggered && isGrounded)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
-            if (orbBounceMiniGame != null)
-            {
-                if (playerManager.player1Object == this.gameObject) orbBounceMiniGame.P1Count();
-                else orbBounceMiniGame.P2Count();
-            }
+            Jump(jumpHeight);
         }
 
         if (dash.triggered || dashing)
@@ -55,6 +50,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGrounded) dashAmount = 1;
 
+    }
+
+    public void Jump(float jumpHeight)
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
+        if (orbBounceMiniGame != null)
+        {
+            if (playerManager.player1Object == this.gameObject) orbBounceMiniGame.P1Count();
+            else orbBounceMiniGame.P2Count();
+        }
     }
 
     public void OnMove(InputValue moveValue)
