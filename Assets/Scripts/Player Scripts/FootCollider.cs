@@ -6,7 +6,7 @@ public class FootCollider : MonoBehaviour
     [SerializeField] private GameObject player;
 
     public bool bounce;
-    private float jumpPadHeight = 14f;
+    private float jumpPadHeight = 10f;
     void Start()
     {
         

@@ -297,6 +297,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moving Platform Folder
       objectReference: {fileID: 0}
+    - target: {fileID: 9203594970741848098, guid: 0e9c0dd17fe2412449aa40df022acdae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

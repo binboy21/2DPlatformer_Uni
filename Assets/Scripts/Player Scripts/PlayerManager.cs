@@ -31,8 +31,15 @@ public class PlayerManager : MonoBehaviour
 
     private bool p1Dead, p2Dead;
 
+    public bool original;
+
     void Start()
     {
+        original = false;
+        GameObject originalPM = GameObject.Find("Player Manager");
+        if (originalPM.GetComponent<PlayerManager>().original == true) Destroy(this.gameObject);
+        else original = true;
+
         if (GameObject.Find("Player Manager (1)") != null) Destroy(this.gameObject);
 
         join = GetComponent<PlayerInput>().actions["Join"];
@@ -66,12 +73,23 @@ public class PlayerManager : MonoBehaviour
 
         if (camera != null)
         {
-            if (!p1Dead) camera.transform.position = new Vector3(player1pos.position.x, player1pos.position.y + 3, -10);
-            else if (!p2Dead) camera.transform.position = new Vector3(player2pos.position.x, player2pos.position.y + 3, -10);
+            if(!p1Dead && !p2Dead)
+            {
+                Vector3 camPos;
+
+                camPos.x = player1Object.transform.position.x + (player2Object.transform.position.x - player1Object.transform.position.x) / 2;
+                camPos.y = (player1Object.transform.position.y + (player2Object.transform.position.y - player1Object.transform.position.y) / 2) + 2.5f;
+                camPos.z = -10;
+
+                camera.transform.position = camPos;
+                Debug.Log("hi");
+            }
+            else if (!p1Dead) camera.transform.position = new Vector3(player1pos.position.x, player1pos.position.y + 2.5f, -10);
+            else if (!p2Dead) camera.transform.position = new Vector3(player2pos.position.x, player2pos.position.y + 2.5f, -10);
             else ToCheckpoint();
         }
 
-            player1Score.text = player1Object.GetComponent<PlayerScore>().score.ToString();
+        player1Score.text = player1Object.GetComponent<PlayerScore>().score.ToString();
 
         if (p2) player2Score.text = player2Object.GetComponent<PlayerScore>().score.ToString();
         else player2Score.text = "";
@@ -81,17 +99,14 @@ public class PlayerManager : MonoBehaviour
 
     public void Player2()
     {
-        if (!p2)
-        {
-            p2 =  true;
-            Debug.Log("yes");
-            var player = PlayerInput.Instantiate(player2, controlScheme: "Player2Input", pairWithDevice: Gamepad.current);
-            player.transform.position = new Vector2(player1pos.position.x - 1, player1pos.position.y + 1);
-            player.GetComponent<PlayerMovement>().playerManager = this;
-            player2Object = player.gameObject;
-            if (orbBounceMiniGame != null) player.GetComponent<PlayerMovement>().orbBounceMiniGame = orbBounceMiniGame;
-
-        }
+        p2 = true;
+        Debug.Log("yes");
+        var player = PlayerInput.Instantiate(player2, controlScheme: "Player2Input", pairWithDevice: Gamepad.current);
+        player.transform.position = new Vector2(player1pos.position.x - 1, player1pos.position.y + 1);
+        player.GetComponent<PlayerMovement>().playerManager = this;
+        player2Object = player.gameObject;
+        p2Dead = false;
+        if (orbBounceMiniGame != null) player.GetComponent<PlayerMovement>().orbBounceMiniGame = orbBounceMiniGame;
     }
 
     public void NewScene()
@@ -104,6 +119,7 @@ public class PlayerManager : MonoBehaviour
         player1Object = player.gameObject;
         if (orbBounceMiniGame != null) player.GetComponent<PlayerMovement>().orbBounceMiniGame = orbBounceMiniGame;
         player1Object.GetComponent<PlayerScore>().score = 0;
+        player1pos = player1Object.transform;
 
         if (p2)
         {
@@ -136,7 +152,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (p1Dead)
         {
-            player1Object.transform.position = checkpoint.position;
+            player1Object.transform.position = new Vector2(checkpoint.position.x, checkpoint.position.y+1);
             player1pos = player1Object.transform;
 
             player1Object.GetComponent<SpriteRenderer>().enabled = true;
@@ -146,7 +162,7 @@ public class PlayerManager : MonoBehaviour
         }
         else if (p2Dead && p2)
         {
-            player2Object.transform.position = checkpoint.position;
+            player2Object.transform.position = new Vector2(checkpoint.position.x, checkpoint.position.y + 1);
             player2Object.GetComponent<SpriteRenderer>().enabled = true;
             player2Object.GetComponent<BoxCollider2D>().enabled = true;
             p2Dead = false;

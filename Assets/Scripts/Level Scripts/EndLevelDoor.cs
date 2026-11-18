@@ -20,7 +20,7 @@ public class EndLevelDoor : MonoBehaviour
     
     void Start()
     {
-        
+        playerManager = GameObject.Find("Player Manager");
     }
 
     // Update is called once per frame
