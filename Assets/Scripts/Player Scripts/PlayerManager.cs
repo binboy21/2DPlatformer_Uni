@@ -138,14 +138,18 @@ public class PlayerManager : MonoBehaviour
         player1Object.GetComponent<BoxCollider2D>().enabled = true;
 
         p1Dead = false;
+        if (p2) player1Object.GetComponent<PlayerScore>().score -= 50;
+        else player1Object.GetComponent<PlayerScore>().score -= 100;
 
         if (p2)
         {
-            player2Object.transform.position = new Vector2(player1pos.position.x - 1, player1pos.position.y - 1);
+            player2Object.transform.position = new Vector2(player1pos.position.x - 1, player1pos.position.y + 1);
             player2Object.GetComponent<SpriteRenderer>().enabled = true;
             player2Object.GetComponent<BoxCollider2D>().enabled = true;
             p2Dead = false;
+            player2Object.GetComponent<PlayerScore>().score -= 50;
         }
+
     }
 
     public void Respawn(Transform checkpoint)

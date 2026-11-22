@@ -4,9 +4,12 @@ public class TimedPlatform : MonoBehaviour
 {
     private float maxTime = 2f;
     private float timer;
+
+    [SerializeField] private bool par;
     void Start()
     {
-        timer = 0f;
+        if (par) timer = 1f;
+        else timer = 0f;
     }
 
     // Update is called once per frame
